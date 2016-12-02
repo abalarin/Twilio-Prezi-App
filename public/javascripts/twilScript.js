@@ -54,4 +54,24 @@ $(function () {
             console.log('Hmm..., I\'ve never seen JSON like this: ', json);
         }
     };
+    $(document).ready(function(e) {
+      connection.send(e.Body)
+        // if (e.keyCode === 13) {
+        //     var msg = $(this).val();
+        //     if (!msg) {
+        //         return;
+        //     }
+        //     // send the message as an ordinary text
+        //     connection.send(msg);
+        //     $(this).val('');
+        //     // disable the input field to make the user wait until server
+        //     // sends back response
+        //     input.attr('disabled', 'disabled');
+        //
+        //     // we know that the first message sent from a user their name
+        //     if (myName === false) {
+        //         myName = msg;
+        //     }
+        // }
+    });
 });
