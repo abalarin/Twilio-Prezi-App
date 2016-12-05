@@ -4,9 +4,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var io = require("socket.io")
+
+//MongoDB Modules--
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/twilioDB');
+
 var index = require('./routes/index');
 var users = require('./routes/users');
-var twiML = require('./routes/users');
 
 var app = express();
 
@@ -22,9 +28,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Make our db accessible to our router
+app.use(function(req,res,next){
+    req.io = io;
+    req.db = db;
+    next();
+});
+
 app.use('/', index);
 app.use('/users', users);
-app.use('/twiML', twiML);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

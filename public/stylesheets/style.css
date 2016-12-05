@@ -1,8 +1,35 @@
+.html{
+  border: 0px;
+  padding: 0px;
+}
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display:inline-block;
 }
 
 a {
   color: #00B7FF;
+}
+div {
+  display:inline-block;
+}
+.twilioDiv{
+  height: 800px;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  padding-left: 25px;
+  width: 210px;
+  max-width: 210px;
+}
+h2 {
+  padding-left: 35px
+}
+.twilioList{
+  padding-left: -10px;
+}
+.twilioList li{
+  list-style-type: none;
+  padding-bottom: 10px;
 }

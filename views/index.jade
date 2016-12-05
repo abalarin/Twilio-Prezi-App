@@ -2,26 +2,23 @@ extends layout
 
 block content
 
-  h1 STEM
-  //- script.
-  //-   var d=document.createElement('div'), p=document.createElement('script'), pp=document.createElement('script'), incl;
-  //-   incl = function(){
-  //-     d.id="prezi_player_gjl-dah1dma8";
-  //-     pp.innerHTML="var player = new PreziPlayer('"+d.id+"', {preziId: 'gjl-dah1dma8', width: '1100px', height: '800px', controls: true, explorable: true});";
-  //-     document.body.appendChild(d);
-  //-     document.body.appendChild(pp);
-  //-   };
-  //-   if (!window.PreziPlayer){
-  //-     p.src="http://prezi.github.io/prezi-player/lib/prezi_player.js";
-  //-     document.body.appendChild(p);
-  //-     p.onload = incl;
-  //-   }
-  //-   else {
-  //-     incl();
-  //-   }
-    
-  ul
-    -for i in list
-      li #{i.from}
-      li #{i.body}
-      li #{empty}
+  script.
+    var d=document.createElement('div'), p=document.createElement('script'), pp=document.createElement('script'), incl;
+    incl = function(){
+      d.id="prezi_player_gjl-dah1dma8";
+      pp.innerHTML="var player = new PreziPlayer('"+d.id+"', {preziId: 'gjl-dah1dma8', width: '1100px', height: '800px', controls: true, explorable: true});";
+      document.body.appendChild(d);
+      document.body.appendChild(pp);
+    };
+    if (!window.PreziPlayer){
+      p.src="http://prezi.github.io/prezi-player/lib/prezi_player.js";
+      document.body.appendChild(p);
+      p.onload = incl;
+    }
+    else {
+      incl();
+    }
+  div(class='twilioDiv')
+    h2 201-574-1835 
+    ul(class='twilioList')
+      
