@@ -11,33 +11,51 @@ router.get('/', function(req, res, next) {
   var db = req.db;
 
   // Get our form values. These rely on the "name" attributes
-  var From = res.req.query.From;
-  var Body = res.req.query.Body;
-
-  if(Body.includes('69')){
-    twiml.message('naughty naughty!');
+  var number = res.req.query.From;
+  var message = res.req.query.Body;
+  if(message.includes('outline')){
+    twiml.message('http://11379db9.ngrok.io/outline');
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString(twiml));
+    return;
   }
-  else{
-    twiml.message('Thanks for the message! -Austin');
-  }
-
   // Set our collection
-  var collection = db.get('twilioMessages');
+  var collection = db.get('ClassUserList');
+  var texts = db.get('ClassDB');
+  texts.insert( {'Body': message} );
 
   // Submit to the DB
-  collection.insert({
-      "From" : From,
-      "Body" : Body
-  }, function (err, doc) {
-      if (err) {
-          // If it failed, return error
-          res.send("There was a problem adding the information to the database.");
-      }
-      else {// Success
-        res.writeHead(200, {'Content-Type': 'text/xml'});
-        res.end(twiml.toString(twiml));
-      }
+  var DocExsist = false;
+  collection.count({ phone: number}, function(err, count){
+    if(count){
+      DocExsist = true;
+    }
   });
+
+  collection.update(
+   { 'phone': number },
+   {
+      '$push': {'Body': message}
+   },
+   { upsert: true },
+   function (err, doc) {
+       if (err) {
+           // If it failed, return error
+           console.log(err);
+           res.end("There was a problem adding the information to the database.");
+       }
+       else {// Success
+         if (!DocExsist) {
+           twiml.message('http://11379db9.ngrok.io/outline');
+           res.writeHead(200, {'Content-Type': 'text/xml'});
+           res.end(twiml.toString(twiml));
+         }else if(message.includes('69')){
+           twiml.message('naughty naughty!');
+           res.writeHead(200, {'Content-Type': 'text/xml'});
+           res.end(twiml.toString(twiml));
+         }
+       }
+    });
 });
 
 

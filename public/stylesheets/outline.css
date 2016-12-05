@@ -1,0 +1,21 @@
+body {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+div{
+  text-align: left;
+}
+h3{
+  padding-left: 2.5%;
+}
+li{
+  padding-bottom: 10px;
+  list-style-type: none;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+#intro{
+  padding-left: 5%;
+  padding-top: 5%;
+  padding-right: 5%;
+  padding-bottom: 5%;
+}
