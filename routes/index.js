@@ -3,7 +3,7 @@ var router = express.Router();
 
 var mongoCol = 'ClassDB'
 
-/* GET Userlist page. */
+// Get request for serving jade templates
 router.get('/', function(req, res) {
     var db = req.db;
     var collection = db.get(mongoCol);
@@ -13,6 +13,8 @@ router.get('/', function(req, res) {
     });
 });
 
+// Serve Update mongoDB collection for messages when JQuery sends reqs
+// Same as above req except serve only documents and not html templlates
 router.post('/', function(req, res) {
     var db = req.db;
     var texts = db.get(mongoCol);

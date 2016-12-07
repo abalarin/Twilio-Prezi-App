@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET Userlist page. */
+// Just serve my simple html outline page for users to follow along ppt
 router.get('/', function(req, res) {
   res.render('outline');
 });

@@ -13,15 +13,21 @@ router.get('/', function(req, res, next) {
   // Get our form values. These rely on the "name" attributes
   var number = res.req.query.From;
   var message = res.req.query.Body;
+
+  //If user request outline respond with url to outline and..
+  // force quit to avoid updating database with useless data
   if(message.includes('outline')){
     twiml.message('http://11379db9.ngrok.io/outline');
     res.writeHead(200, {'Content-Type': 'text/xml'});
     res.end(twiml.toString(twiml));
     return;
   }
-  // Set our collection
-  var collection = db.get('ClassUserList');
-  var texts = db.get('ClassDB');
+
+  // 2 collections,
+  //  1: User list with data theyve sent,
+  //  2: push to big stack of all message to stream to feed
+  var collection = db.get('ClassUserList'); // Collection 1
+  var texts = db.get('ClassDB');  // Collection 2
   texts.insert( {'Body': message} );
 
   // Submit to the DB
@@ -45,6 +51,7 @@ router.get('/', function(req, res, next) {
            res.end("There was a problem adding the information to the database.");
        }
        else {// Success
+         //If its user first message to server serve URL for the outline
          if (!DocExsist) {
            twiml.message('http://11379db9.ngrok.io/outline');
            res.writeHead(200, {'Content-Type': 'text/xml'});
